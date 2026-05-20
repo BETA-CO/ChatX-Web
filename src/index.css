@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Typography - clean monochrome standard */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* HSL Color Palette (Dark Theme Default - PURE MONOCHROME BLACK & WHITE) */
+  --bg-primary: 0 0% 0%;         /* #000000 Pure Black */
+  --bg-secondary: 0 0% 12%;      /* #1e1e1e Very dark gray for bubbles/tiles */
+  --bg-tertiary: 0 0% 8%;        /* #141414 Alternative dark gray */
+  --bg-glass: rgba(0, 0, 0, 0.95);
+  --bg-glass-card: rgba(30, 30, 30, 0.4);
+
+  --text-primary: 0 0% 100%;     /* #ffffff Pure White */
+  --text-secondary: 0 0% 70%;    /* #b3b3b3 Light gray */
+  --text-muted: 0 0% 50%;        /* #808080 Medium gray */
+
+  --primary: 0 0% 100%;          /* #ffffff Pure White main text */
+  --primary-hover: 0 0% 90%;     /* #e5e5e5 */
+  --primary-glow: rgba(255, 255, 255, 0.1);
+
+  --accent: 0 0% 100%;           /* White highlight */
+  --accent-glow: rgba(255, 255, 255, 0.05);
+
+  --border: 0 0% 12%;            /* #1e1e1e Very dark gray for borders */
+  --border-light: 0 0% 20%;      /* #333333 */
+
+  --status-online: 142 70% 45%;   /* #10b981 */
+  
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.8);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.9);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,0.95);
+
+  /* Precise border radii from Flutter components */
+  --radius-sm: 12px;
+  --radius-md: 16px;              /* BorderRadius.circular(16) from user_tile.dart */
+  --radius-lg: 30px;              /* BorderRadius.circular(30) from my_textfield.dart */
+  --radius-pill: 100px;           /* BorderRadius.circular(100) from my_button.dart */
+  
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='light'] {
+  /* Stark, crisp, high-contrast monochrome Zinc theme */
+  --bg-primary: 0 0% 100%;       /* Stark White background */
+  --bg-secondary: 240 4.8% 95.9%;  /* soft Zinc-100 grey for tiles/cards */
+  --bg-tertiary: 240 5.9% 90%;   /* soft Zinc-200 grey for inputs */
+  --bg-glass: rgba(255, 255, 255, 0.98);
+  --bg-glass-card: rgba(244, 244, 245, 0.6);
+
+  --text-primary: 240 10% 3.9%;   /* Deep Zinc-950 charcoal black */
+  --text-secondary: 240 3.8% 34%; /* Zinc-600 dark grey */
+  --text-muted: 240 3.8% 46.1%;   /* Zinc-500 medium grey */
+
+  --primary: 240 5.9% 10%;        /* Crisp charcoal black primary */
+  --primary-hover: 240 5.9% 15%;
+  --primary-glow: rgba(9, 9, 11, 0.05);
+
+  --border: 240 5.9% 90%;          /* Clean light border */
+  --border-light: 240 5.9% 80%;    /* Slightly stronger border contrast */
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 10px 24px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.04);
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: hsl(var(--bg-primary));
+  color: hsl(var(--text-primary));
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+/* Typography elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: hsl(var(--text-primary));
+}
+
+/* Customized Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border-light));
+  border-radius: var(--radius-pill);
+}
+
+/* Dynamic animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+.live-indicator {
+  width: 8px;
+  height: 8px;
+  background-color: hsl(var(--status-online));
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Minimal Panels & Cards */
+.monochrome-panel {
+  background: hsl(var(--bg-primary));
+  border: 1px solid hsl(var(--border));
+}
+
+.monochrome-card {
+  background: hsl(var(--bg-primary));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.monochrome-card:hover {
+  border-color: hsl(var(--border-light));
+}
+
+/* Precise Textfields from my_textfield.dart */
+input.monochrome-input, textarea.monochrome-input {
+  background-color: hsl(var(--bg-secondary));
+  color: hsl(var(--text-primary));
+  border: 1.5px solid rgba(128, 128, 128, 0.2);
+  border-radius: var(--radius-lg); /* circular */
+  padding: 16px 24px;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+input.monochrome-input:focus, textarea.monochrome-input:focus {
+  border-color: hsl(var(--primary));
+}
+
+/* Precise Pill Button from my_button.dart */
+button.monochrome-btn {
+  background-color: hsl(var(--bg-secondary));
+  color: hsl(var(--text-primary));
+  border-radius: var(--radius-pill);
+  padding: 18px 25px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  border: none;
+}
+
+button.monochrome-btn:hover {
+  opacity: 0.9;
+}
+
+button.monochrome-btn:active {
+  transform: scale(0.98);
+}
+
+/* Custom QR loading spinner keyframe */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Premium Micro-Animations and Micro-Interactions */
+.contact-card-animate {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+.contact-card-animate:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-color: hsl(var(--border-light)) !important;
+}
+
+[data-theme='light'] .contact-card-animate:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-btn-animate {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease !important;
+}
+.sidebar-btn-animate:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+[data-theme='light'] .sidebar-btn-animate:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-avatar-animate {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
+}
+.sidebar-avatar-animate:hover {
+  transform: scale(1.06) rotate(3deg);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+/* Page fade-in/up transition */
+.page-transition {
+  animation: pageFadeUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes pageFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Chat bubble entrance animation */
+.message-bubble-animate {
+  animation: bubblePop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: bottom right;
+}
+
+.message-bubble-left-animate {
+  animation: bubblePop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: bottom left;
+}
+
+@keyframes bubblePop {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 767px) {
+  .responsive-sidebar-panel {
+    width: calc(100vw - 64px) !important;
+    flex: 1 !important;
+    max-width: none !important;
+  }
+}
+
+/* Premium Emoji Picker Hover Effects & Micro-animations */
+.emoji-tab-btn {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.emoji-tab-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme='light'] .emoji-tab-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.emoji-btn {
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease !important;
+}
+.emoji-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  transform: scale(1.18);
+}
+[data-theme='light'] .emoji-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
